@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class CompanyListComponent implements OnInit {
 
   companies$!: Observable<Company[]>;
+  yourEventEmitter = new EventEmitter<number>();
 
   constructor(private companyService: CompanyService) {
   }
