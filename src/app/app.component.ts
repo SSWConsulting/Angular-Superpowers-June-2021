@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'fbc-crm-brisbane2021';
+  title = 'Welcome to SSW Firebootcamp';
+  myDate = new Date();
+
+  updateTitle(event: any) {
+    console.log(event);
+
+    this.title = event.target.value;
+  }
+
 }
