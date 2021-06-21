@@ -16,7 +16,7 @@ export class CompanyService {
   public getCompanies(): Observable<Company[]> {
     return this.httpClient.get<Company[]>(`${this.API_BASE}/company`)
       .pipe(
-        tap(x => console.log('SUCCESS', x)),
+        tap(x => console.log('[SERVICE] tap', x)),
         catchError(error => this.errorHandler(error)),
         finalize(() => console.log('FINALIZE'))
       );
