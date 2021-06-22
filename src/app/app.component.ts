@@ -9,7 +9,7 @@ import { CompanyService } from './company/company.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Welcome to SSW Firebootcamp';
+  title = 'Angular Superpowers';
 
   companyCount$!: Observable<number>;
 
