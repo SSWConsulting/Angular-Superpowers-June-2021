@@ -1,18 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CompanyService } from './company/company.service';
 
 @Component({
   selector: 'fbc-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Welcome to SSW Firebootcamp';
-  myDate = new Date();
 
-  updateTitle(event: any) {
-    console.log(event);
+  companyCount$!: Observable<number>;
 
-    this.title = event.target.value;
+  constructor(
+    private companyService: CompanyService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.companyCount$ = this.companyService.getCompanies().pipe(
+      map(companies => companies.length),
+    );
   }
 
 }

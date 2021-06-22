@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 export class CompanyListComponent implements OnInit {
 
   companies$!: Observable<Company[]>;
-  yourEventEmitter = new EventEmitter<number>();
 
   constructor(private companyService: CompanyService) {
   }
@@ -32,11 +31,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   deleteCompany(companyId: number) {
-    this.companyService.deleteCompany(companyId)
-      .subscribe(() => {
-
-        //Just to refresh the grid
-        this.getCompanies()
-      });
+    this.companyService.deleteCompany(companyId);
   }
 }
