@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounce, debounceTime, distinctUntilChanged, filter, withLatestFrom } from 'rxjs/operators';
+import { Company } from '../company';
 import { CompanyService } from '../company.service';
 
 @Component({
@@ -48,9 +49,21 @@ export class CompanyEditComponent implements OnInit {
   saveCompany(): void {
     const {value, valid} = this.companyForm;
 
-    if (valid) {
+    if (!valid) {
+      return;
+    }
+
+    if (this.isNewCompany) {
       this.companyService
         .addCompany(value)
+        .subscribe(() => this.router.navigate(['/company/list']));
+    } else {
+      const company = {
+        ...value,
+        id: this.companyId,
+      } as Company;
+      this.companyService
+        .updateCompany(company)
         .subscribe(() => this.router.navigate(['/company/list']));
     }
   }

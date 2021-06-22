@@ -47,6 +47,18 @@ export class CompanyService {
       .pipe(catchError(error => this.errorHandler<Company>(error)));
   }
 
+  public updateCompany(company: Company): Observable<Company> {
+    return this.httpClient.put<Company>(
+      `${this.API_BASE}/company/${company.id}`,
+      company,
+      {
+        headers: new HttpHeaders().set('content-type', 'application/json')
+      }
+    ).pipe(
+      catchError(error => this.errorHandler<Company>(error))
+    );
+  }
+
   private errorHandler<T>(error: Error): Observable<T> {
     console.log('ERROR', error);
     return new Observable<T>();
