@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
@@ -20,11 +20,26 @@ export class CompanyService {
         catchError(error => this.errorHandler<Company[]>(error)),
         finalize(() => console.log('FINALIZE'))
       );
+  }
 
-    // return [
-    //   { name: 'Company 1', email: 'Email  1', phone: 1111 },
-    //   { name: 'Company 2', email: 'Email  2', phone: 2222 },
-    // ];
+  public getCompany(companyId: number): Observable<Company> {
+    return this.httpClient.get<Company>(
+      `${this.API_BASE}/company/${companyId}`
+    ).pipe(
+      catchError(error => this.errorHandler<Company>(error))
+    );
+  }
+
+  public addCompany(company: Company): Observable<Company> {
+    return this.httpClient.post<Company>(
+      `${this.API_BASE}/company`,
+      company,
+      {
+        headers: new HttpHeaders().set('content-type', 'application/json')
+      }
+    ).pipe(
+      catchError(error => this.errorHandler<Company>(error))
+    );
   }
 
   public deleteCompany(companyId: number): Observable<Company> {
